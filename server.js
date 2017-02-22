@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
 const {ShoppingList} = require('./models');
+const {Recipes} = require('./models');
 
 const jsonParser = bodyParser.json();
 const app = express();
@@ -18,10 +19,21 @@ ShoppingList.create('beans', 2);
 ShoppingList.create('tomatoes', 3);
 ShoppingList.create('peppers', 4);
 
+//creating recipes items
+Recipes.create('clam chowder', ['clam', 'chowder']);
+Recipes.create('PB&J', ['penut butter', 'jelly', 'sandwich']);
+Recipes.create('Mac & Cheese', ['mac', 'cheese']);
+
 // when the root of this router is called with GET, return
 // all current ShoppingList items
 app.get('/shopping-list', (req, res) => {
   res.json(ShoppingList.get());
+});
+
+// when the root of this router is called with GET, return
+// all current Recipes items
+app.get('/recipes', (req, res) => {
+  res.json(Recipes.get());
 });
 
 app.listen(process.env.PORT || 8080, () => {
